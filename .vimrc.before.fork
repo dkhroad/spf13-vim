@@ -1,0 +1,18 @@
+
+let g:spf13_leader='\'
+let g:spf13_bundle_groups=[
+			\'general',
+			\'writing',
+			\'neocomplete',
+			\'programming',
+			\'ruby',
+			\'python',
+			\'go',
+			\'elixir',
+			\'javascript',
+			\'html',
+			\'tmux',
+			\'misc',
+			\]
+
+

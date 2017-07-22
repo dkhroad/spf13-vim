@@ -1,0 +1,168 @@
+let g:spf13_leader='\'
+
+set title                         " Set the terminal's title
+set visualbell                    " No beeping.
+
+"set nobackup                      " Don't make a backup before overwriting a file.
+"set nowritebackup                 " And again.
+
+set noswapfile                    " No swap files please
+
+set tabstop=2                    " Global tab width.
+set shiftwidth=2                 " And again, related.
+set nolist                       " Avoid pesky tab markers"
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Tab mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""
+ map <leader>tt :tabnew<cr>
+ map <leader>te :tabedit
+ map <leader>tc :tabclose<cr>
+ map <leader>to :tabonly<cr>
+ map <leader>tn :tabnext<cr>
+ map <leader>tp :tabprevious<cr>
+ map <leader>tf :tabfirst<cr>
+ map <leader>tl :tablast<cr>
+ map <leader>tm :tabmove
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Color scheme
+""""""""""""""""""""""""""""""""""""""""""""""""
+set background=dark
+" set background=light
+"colorscheme vividchalk
+"colorscheme cobalt
+colorscheme solarized
+"colorscheme railscasts
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Quit help easily
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! QuitWithQ()
+  if &buftype == 'help'
+    quit
+  endif
+endfunction
+autocmd FileType help map <buffer> q :exe QuitWithQ()<cr>
+autocmd FileType help map <buffer> <leader>w :exe QuitWithQ()<cr>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Easy Window Navigation
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set global relativenumber
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd WinEnter * :setlocal relativenumber
+autocmd WinLeave,FocusLost * :setlocal number
+autocmd InsertEnter * :setlocal number
+autocmd InsertLeave * :setlocal relativenumber
+
+function! g:ToggleNuMode()
+  if(&relativenumber == 1)
+    " set number
+    set nornu
+  else
+    set relativenumber
+  endif
+endfunc
+set relativenumber "default line number mode
+
+map <leader>ln :call g:ToggleNuMode()<CR>
+nnoremap <leader><leader> <c-^>
+
+inoremap ;a <Esc> 
+inoremap ;d <Esc>:update<Cr>
+inoremap ;f <C-O>:update<Cr>
+nnoremap ;f :update<CR>
+nnoremap ;d :update<CR>
+
+"tslime 
+let g:tslime_ensure_trailing_newlines = 1
+let g:tslime_normal_mapping = '<localleader>t'
+let g:tslime_visual_mapping = '<localleader>t'
+let g:tslime_vars_mapping = '<localleader>T'
+
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 | 
+    \ set shiftwidth=4 |
+    \ set textwidth=79 | 
+    \ set expandtab | 
+    \ set autoindent | 
+    \ set fileformat=unix |
+
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2 | 
+    \ set softtabstop=2 | 
+    \ set shiftwidth=2 | 
+
+"flag unnecessary white space
+highlight BadWhitespace ctermbg=red guibg=darkred
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+" automatically rebalance windows on a vim resize
+autocmd VimResized * :wincmd =
+
+" zoom a vim pane, <C-w>= to rebalance
+nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
+nnoremap <leader>= :wincmd =<cr>
+
+
+let g:VtrUseVtrMaps = 1
+
+"Vim Tmux runner modifications for Python
+let g:VtrStripLeadingWhitespace = 0
+let g:VtrClearEmptyLines = 0
+let g:VtrAppendNewline = 1
+
+nnoremap <leader>irb :VtrOpenRunner {'orientation': 'v', 'percentage': 25, 'cmd': 'irb'}<cr>
+nnoremap <leader>pyt :VtrOpenRunner {'orientation': 'v', 'percentage': 25, 'cmd': 'python'}<cr>
+nnoremap <leader>ie :VtrOpenRunner {'orientation': 'v', 'percentage': 25, 'cmd': 'iex'}<cr>
+
+set pastetoggle=<F5>
+
+" vim-go
+" write the contents of the file automatically when we call make
+set autowrite
+nnoremap <leader>c :cclose<CR>
+nnoremap <leader>a <Plug>(go-coverage-toggle)
+autocmd FileType go nmap <leader>r <Plug>(go-run)
+autocmd FileType go nmap <leader>t <Plug>(go-test)
+" run :GoBuild or :GoTest based on the go file
+function! s:build_go_files() 
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test)\.go$'
+    call go#test#Test(0,1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
+let g:go_list_type = "quickfix"
+let g:go_highlight_types = 1
+let g:go_highlight_field = 1
+let g:go_highlight_functions =1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_build_constraints = 1
+" let g:gometalinter_enabled = ['vet','golint','errcheck']
+" let g:go_metalinter_autosave = 1
+let g:go_metalinter_deadline = "5s"
+let g:go_decls_include = "func,type"
+let g:go_fmt_command = "goimports"
+"let g:go_fmt_autosave = 0
+let g:go_auto_type_info = 1
+set updatetime=100
+
+" let g:go_auto_sameids = 1
+

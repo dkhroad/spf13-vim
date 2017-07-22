@@ -1,0 +1,34 @@
+"Remove (disable) plugins I do not need
+
+UnBundle 'rust-lang/rust.vim'
+UnBundle 'tpope/vim-cucumber'
+UnBundle 'quentindecock/vim-cucumber-align-pipes'
+UnBundle 'saltstack/salt-vim'
+UnBundle 'kchmck/vim-coffee-script'
+
+
+let g:spf13_bundle_groups=[
+			\'general',
+			\'writing',
+			\'neocomplete',
+			\'programming',
+			\'ruby',
+			\'python',
+			\'go',
+			\'elixir',
+			\'javascript',
+			\'html',
+			\'tmux',
+			\'misc',
+			\]
+
+
+" tmux {
+     if count(g:spf13_bundle_groups, 'tmux')
+         Bundle 'christoomey/vim-tmux-navigator'
+         Bundle 'garyburd/go-explorer'
+         Bundle 'christoomey/vim-tmux-runner'
+     endif
+" }
+
+

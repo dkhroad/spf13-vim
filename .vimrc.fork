@@ -3,10 +3,10 @@ let g:spf13_leader='\'
 set title                         " Set the terminal's title
 set visualbell                    " No beeping.
 
-"set nobackup                      " Don't make a backup before overwriting a file.
-"set nowritebackup                 " And again.
-
+set nobackup                      " Don't make a backup before overwriting a file.
+set nowritebackup                 " And again.
 set noswapfile                    " No swap files please
+
 
 set tabstop=2                    " Global tab width.
 set shiftwidth=2                 " And again, related.

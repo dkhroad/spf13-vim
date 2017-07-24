@@ -78,11 +78,11 @@ set relativenumber "default line number mode
 map <leader>ln :call g:ToggleNuMode()<CR>
 nnoremap <leader><leader> <c-^>
 
-inoremap ;a <Esc> 
-inoremap ;d <Esc>:update<Cr>
-inoremap ;f <C-O>:update<Cr>
-nnoremap ;f :update<CR>
-nnoremap ;d :update<CR>
+" inoremap ;a <Esc> 
+" inoremap ;d <Esc>:update<Cr>
+" inoremap ;f <C-O>:update<Cr>
+" nnoremap ;f :update<CR>
+" nnoremap ;d :update<CR>
 
 "tslime 
 let g:tslime_ensure_trailing_newlines = 1
@@ -165,4 +165,15 @@ let g:go_auto_type_info = 1
 set updatetime=100
 
 " let g:go_auto_sameids = 1
+
+" Airline  {
+  let g:airline_detect_spell=0
+  let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+  let g:airline#extensions#hunks#enabled = 0
+  let g:airline_section_z = '%{g:airline_symbols.linenr}%l,%c(%V)%{g:airline_symbols.maxlinenr}%L(%p%%)'
+  let g:airline_left_sep = '⮀'
+  let g:airline_right_sep = '⮂'
+" }
+
+let g:indent_guides_enable_on_vim_startup=0
 
